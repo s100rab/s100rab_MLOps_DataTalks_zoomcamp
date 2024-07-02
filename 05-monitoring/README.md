@@ -1,142 +1,41 @@
-# 5. Model Monitoring
-
-## 5.1 Intro to ML monitoring
-
-<a href="https://www.youtube.com/watch?v=SQ0jBwd_3kk&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK">
-  <img src="images/thumbnail-5-01.jpg">
-</a>
+🚀 Proof of Concept: Real-Time Data Monitoring with Evidently AI and MLOps 🚀
+I recently completed a proof of concept project that integrates several powerful tools to monitor and evaluate machine learning systems in real-time. This project leverages the capabilities of Evidently AI, Grafana, and PostgreSQL, packaged neatly in Docker containers.
 
 
 
-## 5.2 Environment setup
+Project Scope and Technology Stack:
+- Evidently AI: For generating reports, test suites, and dashboards that evaluate and monitor data and ML models.
+- Grafana: For visualizing metrics and creating interactive dashboards.
+- PostgreSQL: To store metrics data.
+- Docker: To containerize and orchestrate the services for seamless deployment and management.
 
-<a href="https://www.youtube.com/watch?v=yixA3C1xSxc&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK">
-  <img src="images/thumbnail-5-02.jpg">
-</a>
+Challenges Faced:
+1. Interpreting Requirements: Initially struggled with understanding the requirements for expanded monitoring and quantile metrics.
+2. Integration Complexity: Ensuring seamless integration of Evidently AI reports with Grafana dashboards and PostgreSQL.
+3. Dashboard Customization: Customizing and saving dashboard configurations without overwriting existing panels.
+4. Data Management: Efficiently managing and querying large datasets to monitor metrics daily.
 
+Solutions and Approach:
+- Expanded Monitoring: Using Evidently AI’s `ColumnQuantileMetric` to calculate daily quantile values for fare amounts.
+- Separate Configurations: Avoiding overwriting by creating separate database tables and Grafana panels for homework.
+- Efficient Queries: Streamlining SQL queries for Grafana dashboards by copying and editing existing queries.
+- Automated Workflows: Setting up automated scripts to run daily data monitoring and update dashboards.
 
+Applications in Real-Time Scenarios:
+This project showcases the potential for real-time monitoring and evaluation in various ML-powered systems:
+- Ride-Sharing Platforms: Monitoring trip fare distributions and identifying anomalies in real-time.
+- Financial Systems: Real-time monitoring of transaction amounts to detect fraud or unusual activity.
+- Healthcare: Monitoring patient data metrics to ensure consistent and accurate data collection and processing.
 
-## 5.3 Prepare reference and model
+Learnings and Next Steps:
+Understanding Evidently AI has been a game-changer:
+1. Reports: Inline in Jupyter notebooks and exportable to JSON, HTML, etc.
+2. Test Suites: Pre-defined presets for common metrics.
+3. Dashboards: Customizable panels and integration with external solutions like Prometheus and Grafana.
 
-<a href="https://www.youtube.com/watch?v=IjNrkqMYQeQ&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK">
-  <img src="images/thumbnail-5-03.jpg">
-</a>
+💡 Key Takeaways:
+- Evidently AI simplifies the evaluation and monitoring of data and ML models.
+- Effective integration of monitoring tools can provide powerful real-time insights.
+- Properly organizing and managing configurations and data is crucial for scalable solutions.
 
-
-
-## 5.4 Evidently metrics calculation
-
-<a href="https://www.youtube.com/watch?v=kP3lzh_HfWY&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK">
-  <img src="images/thumbnail-5-04.jpg">
-</a>
-
-
-
-## 5.5 Dummy monitoring
-
-<a href="https://www.youtube.com/watch?v=s3G4PMsOMOA&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK">
-  <img src="images/thumbnail-5-05.jpg">
-</a>
-
-
-
-## 5.6 Data quality monitoring
-
-<a href="https://www.youtube.com/watch?v=fytrmPbcLhI&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK">
-  <img src="images/thumbnail-5-06.jpg">
-</a>
-
-
-
-## 5.7 Save Grafana Dashboard
-
-<a href="https://www.youtube.com/watch?v=-c4iumyZMyw&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK">
-  <img src="images/thumbnail-5-07.jpg">
-</a>
-
-
-
-## 5.8 Debugging with test suites and reports
-
-<a href="https://www.youtube.com/watch?v=sNSk3ojISh8&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK">
-  <img src="images/thumbnail-5-08.jpg">
-</a>
-
-
-## 5.8 Homework
-
-
-More information [here](../cohorts/2023/05-monitoring/homework.md)
-
-
-## Notes
-
-Did you take notes? Add them here:
-
-* [Week 5 notes by M. Ayoub C.](https://gist.github.com/Qfl3x/aa6b1bec35fb645ded0371c46e8aafd1)
-* [week 5: Monitoring notes Ayoub.B](https://github.com/ayoub-berdeddouch/mlops-journey/blob/main/monitoring-05.md)
-* [Week 5: 2023](https://github.com/dimzachar/mlops-zoomcamp/tree/master/notes/Week_5)
-* [Week5: Why we need to monitor models after deployment? by Hongfan (Amber)](https://github.com/Muhongfan/MLops/blob/main/05-monitoring/README.md)
-* Send a PR, add your notes above this line
-
-
-
-# Monitoring example
-
-## Prerequisites
-
-You need following tools installed:
-- `docker`
-- `docker-compose` (included to Docker Desktop for Mac and Docker Desktop for Windows )
-
-## Preparation
-
-Note: all actions expected to be executed in repo folder.
-
-- Create virtual environment and activate it (eg. `python -m venv venv && source ./venv/bin/activate` or `conda create -n venv python=3.11 && conda activate venv`)
-- Install required packages `pip install -r requirements.txt`
-- Run `baseline_model_nyc_taxi_data.ipynb` for downloading datasets, training model and creating reference dataset 
-
-## Monitoring Example
-
-### Starting services
-
-To start all required services, execute:
-```bash
-docker-compose up
-```
-
-It will start following services:
-- `db` - PostgreSQL, for storing metrics data
-- `adminer` - database management tool
-- `grafana` - Visual dashboarding tool 
-
-
-### Sending data
-
-To calculate evidently metrics with prefect and send them to database, execute:
-```bash
-python evidently_metrics_calculation.py
-```
-
-This script will simulate batch monitoring. Every 10 seconds it will collect data for a daily batch, calculate metrics and insert them into database. This metrics will be available in Grafana in preconfigured dashboard. 
-
-### Accsess dashboard
-
-- In your browser go to a `localhost:3000`
-The default username and password are `admin`
-
-- Then navigate to `General/Home` menu and click on `Home`.
-
-- In the folder `General` you will see `New Dashboard`. Click on it to access preconfigured dashboard.
-
-### Ad-hoc debugging
-
-Run `debugging_nyc_taxi_data.ipynb` to see how you can perform a debugging with help of Evidently `TestSuites` and `Reports`
-
-### Stopping services
-
-To stop all services, execute:
-```bash
-docker-compose down
-```
+hashtag#MLOps hashtag#DataScience hashtag#MachineLearning hashtag#EvidentlyAI hashtag#Grafana hashtag#PostgreSQL hashtag#Docker hashtag#RealTimeMonitoring hashtag#DataTalksClub
