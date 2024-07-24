@@ -1,0 +1,25 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+sklearn = "*"
+mlflow = "*"
+optuna = "*"
+imblearn = "*"
+pandas = "*"
+numpy = "*"
+seaborn = "*"
+matplotlib = "*"
+xgboost = "==1.3.3"
+scikit-learn = "==1.1.1"
+prefect = "*"
+flask = "*"
+requests = "*"
+importlib-resources = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"
