@@ -1,90 +1,53 @@
-# 4. Model Deployment
 
-## 4.1 Three ways of deploying a model
+# End-to-End Machine Learning Model Deployment
 
-<a href="https://www.youtube.com/watch?v=JMGe4yIoBRA&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK">
-  <img src="images/thumbnail-4-01.jpg">
-</a>
+This project provides a comprehensive, hands-on exploration of deploying machine learning models using modern MLOps tools and practices. It covers three fundamental deployment patterns—**batch**, **online (web service)**, and **streaming**—to demonstrate how to serve model predictions for a variety of real-world use cases.
 
+---
 
+## 🚀 Project Overview
 
-## 4.2 Web-services: Deploying models with Flask and Docker
+The journey from a trained model to a production-ready application is a critical step in the machine learning lifecycle. This project demystifies that process by implementing several deployment strategies, each tailored for different operational requirements.
 
-<a href="https://www.youtube.com/watch?v=D7wfMAdgdF8&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK">
-  <img src="images/thumbnail-4-02.jpg">
-</a>
+The core focus is on building robust, scalable, and maintainable deployment pipelines. From creating a containerized web service with Flask and Docker to orchestrating batch jobs with Prefect, this repository serves as a practical guide and showcase of my skills in productionizing ML models.
 
+---
 
-[See code here](web-service/)
+## 🛠️ Technologies & Tools
 
+* **Languages & Frameworks**: Python, Scikit-learn, Flask
+* **Orchestration**: Prefect
+* **ML Lifecycle**: MLflow
+* **Containerization**: Docker
+* **Cloud Platforms**: Amazon Web Services (AWS)
+    * **Streaming**: Kinesis, Lambda
+    * **Storage**: S3
 
-## 4.3 Web-services: Getting the models from the model registry (MLflow)
+---
 
-<a href="https://www.youtube.com/watch?v=aewOpHSCkqI&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK">
-  <img src="images/thumbnail-4-03.jpg">
-</a>
+## 🎯 Deployment Strategies Implemented
 
+This project is structured around three distinct deployment methods, with dedicated code and implementation for each.
 
-[See code here](web-service-mlflow/)
+### 1. Online Deployment: Real-time Predictions via Web Service
 
+For scenarios requiring immediate, on-demand predictions, I developed a RESTful API.
 
-## 4.4 (Optional) Streaming: Deploying models with Kinesis and Lambda 
+* **Flask API**: Built a lightweight web server using **Flask** to expose a prediction endpoint (`/predict`). This endpoint receives input data in real-time and returns the model's prediction.
+* **Docker Containerization**: Containerized the Flask application using **Docker**. This ensures that the model and its dependencies are packaged into a portable, reproducible, and scalable unit, ready for deployment on any environment.
+* **MLflow Model Registry**: Integrated the service with the **MLflow Model Registry**. Instead of hardcoding a model file, the application dynamically fetches the latest production-ready model from the registry. This decouples the model from the application code, enabling seamless model updates without service downtime.
 
-<a href="https://www.youtube.com/watch?v=TCqr9HNcrsI&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK">
-  <img src="images/thumbnail-4-04.jpg">
-</a>
+### 2. Batch Deployment: Offline Scoring with Prefect
 
+This approach is designed for processing large volumes of data offline, where predictions are not required in real-time.
 
-[See code here](streaming/)
+* **Scoring Script (`score.py`)**: Developed a Python script to load a trained model, read a batch of data (e.g., from a CSV file or a database), generate predictions, and save the results.
+* **Orchestration with Prefect**: Used **Prefect** to orchestrate the batch scoring script as a reliable, observable, and schedulable workflow. I created a Prefect `flow` that encapsulates the entire scoring logic.
+* **Scheduled Deployments**: Configured a **Prefect deployment** to run the scoring flow on a recurring schedule (e.g., daily or hourly). This demonstrates how to automate routine prediction tasks, with capabilities for backfilling, monitoring, and alerting.
 
+### 3. (Optional) Streaming Deployment: Serverless Real-time Inference
 
-## 4.5 Batch: Preparing a scoring script
+This section explores a more advanced, event-driven architecture for processing continuous data streams.
 
-<a href="https://www.youtube.com/watch?v=18Lbaaeigek&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK">
-  <img src="images/thumbnail-4-05.jpg">
-</a>
-
-
-[See code here](batch/)
-
-
-## 4.6 MLOps Zoomcamp 4.6 - Batch: Scheduling batch scoring jobs with Prefect
-
-The unit 4.6 consists of multiple videos:
-
-* [4.6.1 - Package Manager](https://www.youtube.com/watch?v=DmWgkNA6i-w)
-* [4.6.2 - Original FIle walkthrough](https://www.youtube.com/watch?v=2FUfbMqMEgg)
-* [4.6.3 - Modifying score.py](https://www.youtube.com/watch?v=NWeTQEGufiI)
-* [4.6.4 - Showing AWS Console](https://www.youtube.com/watch?v=fTQ3uqrGdrE)
-* [4.6.5 - Running the file](https://www.youtube.com/watch?v=s4a-tU-t2XU)
-* [4.6.6 - Create the project](https://www.youtube.com/watch?v=gdYM_-WShIU)
-* [4.6.7 - Creating deployment](https://www.youtube.com/watch?v=vp3VbmAIv_Y)
-* [4.6.8 - Backfilling update](https://www.youtube.com/watch?v=E42C1uyRiFA)
-* [4.6.9 - Running on a functioning work pool](https://www.youtube.com/watch?v=K-FDw3HBcE4)
-* [4.6.10 - Adding schedule](https://www.youtube.com/watch?v=0WpR3ZUINpA )
-* [4.6.11 - Overview Wrap up](https://www.youtube.com/watch?v=C5mM8Jkt2jI)
-
-
-[Old Video (2022 Edition)](https://www.youtube.com/watch?v=ekT_JW213Tc)
-
-## 4.7 Choosing the right way of deployment
-
-COMING SOON
-
-
-## 4.8 Homework
-
-More information [here](../cohorts/2023/04-deployment/homework.md).
-
-
-## Notes
-
-Did you take notes? Add them here:
-
-* [Notes on model deployment (+ creating a modeling package) by Ron M.](https://particle1331.github.io/inefficient-networks/notebooks/mlops/04-deployment/notes.html)
-* [Notes on Model Deployment using Google Cloud Platform, by M. Ayoub C.](https://gist.github.com/Qfl3x/de2a9b98a370749a4b17a4c94ef46185)
-* [Week4: Notes on Model Deployment by Bhagabat](https://github.com/BPrasad123/MLOps_Zoomcamp/tree/main/Week4)
-* [Week 4: Deployment notes by Ayoub.B](https://github.com/ayoub-berdeddouch/mlops-journey/blob/main/deployment-04.md)
-* [Week 4: Deployment notes by Waleed](https://github.com/waleedayoub/mlops-zoomcamp/blob/main/cohorts/2023/04-deployment/module4notes.waleed.md)
-* [Week4: Deployment: Offline (Batch), Online (Web service /w MLflow, Streaming) by Hongfan (Amber)](https://github.com/Muhongfan/MLops/blob/main/04-deployment/README.md)
-* Send a PR, add your notes above this line
+* **AWS Kinesis**: Implemented a data pipeline using **Amazon Kinesis** to ingest streaming data in real-time.
+* **AWS Lambda**: Deployed the prediction logic as a serverless function using **AWS Lambda**. This function is automatically triggered by new data arriving in the Kinesis stream, allowing for highly scalable and cost-effective real-time inference without managing servers.
